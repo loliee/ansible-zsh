@@ -3,10 +3,10 @@ Ansible Role: ZSH
 
 .. image:: https://travis-ci.org/loliee/ansible-zsh.svg?branch=master
     :target: https://travis-ci.org/loliee/ansible-zsh
-
-
-Install and set up `ZSH <http://www.zsh.org/>`_.
-This role can also configure `~./zshrc` file and configure nice prompt (check `mlpure <http://github.com/loliee/mlpure>`_ for a nice, fast and customizable one !)
+|
+|Install `ZSH <http://www.zsh.org/>`_ package and can create `~./zshrc` as you want.
+|This role can also set up for you a zsh prompt, check `mlpure <http://github.com/loliee/mlpure>`_ for a nice, fast and customizable one !
+|
 
 Requirements
 ============
