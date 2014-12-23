@@ -1,0 +1,35 @@
+---
+# Test playbook: Configuration ~/.zshrc
+
+- hosts: localhost
+  remote_user: root
+  vars:
+    zsh_users_config:
+      root:
+        file_zshrc: |
+          alias ll='ls -lah'
+
+  roles:
+    - zsh
+
+  tasks:
+    - name: Check if zshrc was successfully created, just ls ...
+      shell: ls ~{{ item.key }}/.zshrc
+      with_dict: zsh_users_config
+      register: ls_result
+      failed_when: ls_result.rc != 0
+      always_run: True
+
+    - name: Check if lines was correctly appended in .zshrc.
+      shell: grep "alias ll='ls -lah'" ~{{ item.key }}/.zshrc
+      with_dict: zsh_users_config
+      register: grep_result
+      failed_when: grep_result.rc != 0
+      always_run: True
+
+    - name: Check if no prompt config added.
+      shell: 'grep "autoload -U promptinit && promptinit" ~{{ item.key }}/.zshrc'
+      with_dict: zsh_users_config
+      register: grep_result
+      failed_when: grep_result.rc == 0
+      always_run: True

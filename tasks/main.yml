@@ -1,0 +1,22 @@
+---
+# Install and zsh package, set up zshrc.
+
+- include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
+  tags:
+    - packages
+
+- include: Debian.yml
+  when: ansible_os_family == 'Debian'
+  tags:
+    - packages
+
+- include_vars: "{{ env_test }}"
+  always_run: True
+  when: env_test is defined and env_test
+  tags:
+    - test
+
+- include: Config.yml
+  tags:
+    - config

@@ -1,0 +1,23 @@
+# File managed by ansible, should not be modified.
+
+# [INIT]
+
+{% for username, options in zsh_users_config.iteritems() %}
+  {% if username == item.key %}
+
+    {%- if options.has_key('prompt_install') and options.prompt_install %}
+
+fpath=( "$HOME/.zfunctions" $fpath )
+autoload -U promptinit && promptinit
+prompt {{ options.prompt_name }}
+
+    {%- endif %}
+
+    {%- if options.has_key('file_zshrc') and options.file_zshrc %}
+
+{{ options.file_zshrc }}
+
+    {%- endif %}
+
+  {% endif %}
+{% endfor %}

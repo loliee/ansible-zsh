@@ -1,0 +1,53 @@
+---
+# Setup zshrc and prompt
+
+- name: Set as default shell
+  user: name={{ item.key }} shell=/bin/zsh
+  with_dict: zsh_users_config | default({})
+  when: >
+    (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian') and
+    (item.value.has_key('default_shell') and item.value.default_shell)
+
+- name: Generate ~.zshrc.
+  template:
+    mode=0644
+    src=zshrc.j2
+    owner={{ item.key }}
+    dest=~{{ item.key }}/.zshrc
+  with_dict: zsh_users_config | default({})
+  when: >
+    (item.value.has_key('prompt_install') and item.value.prompt_install) or
+    (item.value.has_key('file_zshrc') and item.value.file_zshrc)
+
+- name: Check for .zsfunctions directory.
+  always_run: Yes
+  file:
+    state=directory
+    mode=0755
+    owner={{ item.key }}
+    dest=~{{ item.key }}/.zfunctions
+  with_dict: zsh_users_config | default({})
+  when: >
+    item.value.has_key('prompt_install') and item.value.prompt_install
+
+- fail: msg='Check user "{{ item.key }}" config dict ! "prompt_name" and "prompt_download_url" must set up if prompt_install is True.'
+  always_run: Yes
+  with_dict: zsh_users_config | default({})
+  when: >
+    item.value.has_key('prompt_install') and item.value.prompt_install and
+    (
+      (not item.value.has_key('prompt_name') and item.value.has_key('prompt_download_url')) or
+      (item.value.has_key('prompt_name') and not item.value.has_key('prompt_download_url'))
+    )
+
+- name: Download zsh prompt file.
+  get_url:
+    mode=0744
+    owner={{ item.key }}
+    url={{ item.value.prompt_download_url }}
+    dest=~{{ item.key }}/.zfunctions/prompt_{{ item.value.prompt_name }}_setup
+
+  with_dict: zsh_users_config | default({})
+  when: >
+    item.value.has_key('prompt_name') and
+    item.value.has_key('prompt_download_url')
