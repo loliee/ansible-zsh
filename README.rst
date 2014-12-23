@@ -4,7 +4,9 @@ Ansible Role: ZSH
 .. image:: https://travis-ci.org/loliee/ansible-zsh.svg?branch=master
     :target: https://travis-ci.org/loliee/ansible-zsh
 
-Install and set up `ZSH <http://www.zsh.org/>`_
+
+Install and set up `ZSH <http://www.zsh.org/>`_.
+This role can also configure `~./zshrc` file and configure nice prompt (check `mlpure <http://github.com/loliee/mlpure>`_ for a nice, fast and customizable one !)
 
 Requirements
 ============
@@ -74,6 +76,9 @@ Run test, make sure zsh role is in your role path
 .. code:: bash
 
   sudo ansible-playbook -i ./tests/inventory ./tests/test_prompt.yml --connection=local
+
+
+Check `.travis.yml <.travis.yml>`_ for detail
 
 Licence
 =======
