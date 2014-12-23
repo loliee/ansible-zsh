@@ -18,9 +18,10 @@ Role Variables
 Unset by default, dictionary should defined like this:
 
 .. code:: yaml
-  zsh_users_config
-    user:
-      option: value
+
+      zsh_users_config
+        user:
+          option: value
 
 **Options**
 
