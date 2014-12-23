@@ -10,7 +10,7 @@
           alias ll='ls -lah'
 
   roles:
-    - zsh
+    - ansible-zsh
 
   tasks:
     - name: Check if zshrc was successfully created, just ls ...

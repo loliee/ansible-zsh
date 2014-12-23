@@ -14,7 +14,7 @@
           alias ls='ls -lah'
   # Run
   roles:
-    - zsh
+    - ansible-zsh
 
   # Test Result
   tasks:
