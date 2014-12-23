@@ -1,6 +1,9 @@
 Ansible Role: ZSH
 #################
 
+.. image:: https://travis-ci.org/loliee/ansible-zsh.svg?branch=master
+    :target: https://travis-ci.org/loliee/ansible-zsh
+
 Install and set up `ZSH <http://www.zsh.org/>`_
 
 Requirements
