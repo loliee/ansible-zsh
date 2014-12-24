@@ -1,7 +1,5 @@
 # File managed by ansible, should not be modified.
 
-# [INIT]
-
 {% for username, options in zsh_users_config.iteritems() %}
   {% if username == item.key %}
 
@@ -15,6 +13,7 @@ prompt {{ options.prompt_name }}
 
     {%- if options.has_key('file_zshrc') and options.file_zshrc %}
 
+# Customs
 {{ options.file_zshrc }}
 
     {%- endif %}
