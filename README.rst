@@ -71,7 +71,7 @@ The following playbook will ensure zsh is present for root user and will setup p
       roles:
         - zsh
 
-Run test, make sure zsh role is in your role path
+Run test, make sure ansible-zsh role is in your role path
 
 .. code:: bash
 

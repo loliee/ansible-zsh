@@ -27,7 +27,7 @@
       failed_when: grep_result.rc != 0
       always_run: True
 
-    - name: Check if no prompt config added.
+    - name: Check if no prompt config added in zshrc.
       shell: 'grep "autoload -U promptinit && promptinit" ~{{ item.key }}/.zshrc'
       with_dict: zsh_users_config
       register: grep_result
