@@ -9,6 +9,7 @@ before_install:
   - sudo useradd mtester -m -d /home/mtester -s /bin/bash
   - sudo chgrp ```id -gn``` /home/mtester
   - sudo chmod g+s /home/mtester
+  - sudo rm -rf /home/mtester/.zfunctions /home/mtester/.zshrc
   - umask 002
   - gem install serverspec
 
@@ -19,6 +20,9 @@ install:
 script:
   # Check machine pre-test state.
   - rspec tests/spec/before_test_spec.rb
+
+  # Check syntax
+  - ansible-playbook -i tests/inventory ./tests/playbooks/install.yml --syntax-check --list-tasks
 
   # Check install
   - ansible-playbook -i ./tests/inventory tests/playbooks/install.yml --connection=local --sudo
