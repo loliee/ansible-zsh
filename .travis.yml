@@ -24,12 +24,8 @@ script:
   - rspec tests/spec/before_test_spec.rb
 
   # Check syntax
-  - ansible-playbook -i tests/inventory ./tests/playbooks/configure_from_directory.yml --syntax-check --list-tasks
+  - ansible-playbook -i tests/inventory ./tests/playbooks/configure.yml --syntax-check --list-tasks
 
-  - ansible-playbook -i ./tests/inventory tests/playbooks/configure_from_directory.yml --connection=local --sudo
-  - rspec tests/spec/configure_from_directory_spec.rb
-  - sudo rm -rf /home/mtester/.zfunctions
-  - sudo rm -f /home/mtester/.zshrc
-
+  # Check role
   - ansible-playbook -i ./tests/inventory tests/playbooks/configure.yml --connection=local --sudo
   - rspec tests/spec/configure_spec.rb
