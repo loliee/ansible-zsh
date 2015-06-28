@@ -6,8 +6,8 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get remove --purge zsh
   - sudo apt-get install ruby rubygems
+  - sudo useradd mtester -m -d /home/mtester
   - gem install serverspec
-  - echo $USER
 
 install:
   - pip install ansible

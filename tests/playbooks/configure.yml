@@ -5,7 +5,7 @@
   remote_user: root
   vars:
     __users__:
-      root:
+      mtester:
         zsh_prompt_install: Yes
         zsh_zshrc_content: |
           alias ll='ls -la'
