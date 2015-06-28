@@ -6,10 +6,6 @@ describe package('zsh') do
   it { should_not be_installed }
 end
 
-describe command('/home/mtester/.zshrc') do
-  it { should_not be_file }
-end
-
 describe file('/home/mtester/.zfunctions/') do
   it { should_not be_directory }
 end
