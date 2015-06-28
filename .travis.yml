@@ -21,9 +21,9 @@ script:
   - rspec tests/spec/before_test_spec.rb
 
   # Check install
-  - ansible-playbook -i ./tests/inventory ./tests/playbooks/install.yml --connection=local --sudo
+  - ansible-playbook -i ./tests/inventory tests/playbooks/install.yml --connection=local --sudo
   - rspec tests/spec/install_spec.rb
 
   # Check configuration
-  - ansible-playbook -i ./tests/inventory ./tests/playbooks/configure.yml --connection=local --sudo
+  - ansible-playbook -i ./tests/inventory tests/playbooks/configure.yml --connection=local --sudo
   - rspec tests/spec/configure_spec.rb
