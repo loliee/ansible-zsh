@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   author: Maxime Loliée
-  description: Shell
+  description: Install and set up ZSH an interactive and fast shell.
   license: "license (MIT)"
   min_ansible_version: 1.8
   platforms:
@@ -15,5 +15,8 @@ galaxy_info:
     versions:
     - all
   - name: Ubuntu
+    versions:
+    - all
+  - name: Darwin
     versions:
     - all
