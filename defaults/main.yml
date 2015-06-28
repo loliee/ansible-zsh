@@ -1,0 +1,5 @@
+---
+
+zsh_default_prompt_name: mlpure
+zsh_default_prompt_download_url: https://raw.githubusercontent.com/loliee/mlpure/master/pure.zsh
+zsh_default_prompt_additional_url: https://raw.githubusercontent.com/loliee/mlpure/master/async.zsh

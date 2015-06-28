@@ -1,10 +1,10 @@
 ---
 # Install and zsh package, set up zshrc.
 
-- include: RedHat.yml
-  when: ansible_os_family == 'RedHat'
-  tags:
-    - packages
+#- include: RedHat.yml
+#  when: ansible_os_family == 'RedHat'
+#  tags:
+#    - packages
 
 - include: Debian.yml
   when: ansible_os_family == 'Debian'
@@ -17,6 +17,6 @@
   tags:
     - test
 
-- include: Config.yml
+- include: configure.yml
   tags:
     - config
