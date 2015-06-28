@@ -7,6 +7,9 @@ before_install:
   - sudo apt-get remove --purge zsh
   - sudo apt-get install ruby rubygems
   - sudo useradd mtester -m -d /home/mtester
+  - sudo chgrp ```id -gn``` /home/mtester
+  - umask 002
+  - chmod g+s /home/mtester
   - gem install serverspec
 
 install:

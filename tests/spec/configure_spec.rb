@@ -2,16 +2,15 @@ require 'serverspec'
 
 set :backend, :exec
 
-
-describe file('/root/.zfunctions/async') do
+describe file('/home/mtester/.zfunctions/async') do
   it { should be_file }
 end
 
-describe file('/root/.zfunctions/prompt_mlpure_setup') do
+describe file('/home/mtester/.zfunctions/prompt_mlpure_setup') do
   it { should be_file }
 end
 
-describe file('/root/.zfunctions/.zshrc') do
+describe file('/home/mtester/.zfunctions/.zshrc') do
   its(:content) { should contain /# Ansible managed:/ }
   its(:content) { should contain /fpath=("$HOME/.zfunctions" $fpath)/ }
   its(:content) { should contain /autoload -U promptinit && promptinit/ }
