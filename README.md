@@ -24,29 +24,27 @@ __users__:
 ```
 **Options**
 
--------------------------------------------------------------------------------------------------------
 | Option                    | Type     | Comments                                                      |
-|------------------------------------------------------------------------------------------------------|
+|---------------------------|----------|---------------------------------------------------------------|
 | zsh_default_shell         | bool     | Configure as default shell. Create `.zshrc`and `.zfunctions`. |
 | zsh_prompt_install        | bool     | Install prompt ?, default value is `No`                       |
 | zsh_prompt_name           | string   | Prompt name to load in `.zshrc`.                              |
-| zsh_prompt_download_url   | string   | Prompt download url, e.g [pure](https://github.com/sindresorhus/pure)                                             |
+| zsh_prompt_download_url   | string   | Prompt download url, e.g [pure](https://github.com/sindresorhus/pure) |
 | zsh_prompt_additional_url | string   | Prompt additional download url to put in `.zfunctions`.       |
 | zsh_zfunctions_directory  | string   | Directory of files to upload on remote `.zfunctions`.         |
 | zsh_zshrc_content         | text     | Lines to append in `~/.zshrc`.                                |
---------------------------------------------------------------------------------------------------------
+
 
 ### Defaults
 
 Check [defaults/main.yml](defaults/main.yml) for default values.
 
-------------------------------------------------------------------------------------------------------
+
 | Variable                          | Type     | Comments                                            |
-|----------------------------------------------------------------------------------------------------|
+|-----------------------------------|----------|-----------------------------------------------------|
 | zsh_default_prompt_name           | string   | Default prompt_name, `mlpure`.                      |
-| zsh_default_prompt_download_url   | string   | Prompt download url, [mlpure](https://github.com/loliee/mlpure)                                                    |
-| zsh_default_prompt_additional_url | text     | `mlpure` async lib.                                 |
-------------------------------------------------------------------------------------------------------
+| zsh_default_prompt_download_url   | string   | Prompt download url, [mlpure](https://github.com/loliee/mlpure) |
+| zsh_default_prompt_additional_url | text     | `mlpure` async lib.                                 |Ó
 
 
 ## Example Playbook
