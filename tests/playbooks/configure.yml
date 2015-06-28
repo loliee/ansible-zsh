@@ -1,0 +1,17 @@
+---
+# Test playbook: configure zsh.
+
+- hosts: localhost
+  remote_user: root
+  vars:
+    __users__:
+      mtester:
+        zsh_default_shell: Yes
+        zsh_prompt_install: Yes
+        zsh_zshrc_content: |
+          alias ll='ls -la'
+
+
+  # Run
+  roles:
+    - ansible-zsh
