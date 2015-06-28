@@ -1,4 +1,4 @@
 ---
 
-- name: Install package
+- name: Install package.
   apt: name=zsh state=present
