@@ -6,6 +6,7 @@
   vars:
     __users__:
       mtester:
+        zsh_default_shell: Yes
         zsh_prompt_install: Yes
         zsh_zshrc_content: |
           alias ll='ls -la'

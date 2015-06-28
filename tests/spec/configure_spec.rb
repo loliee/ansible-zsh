@@ -2,6 +2,14 @@ require 'serverspec'
 
 set :backend, :exec
 
+describe command('/home/mtester/.zshrc') do
+  it { should be_file }
+end
+
+describe file('/home/mtester/.zfunctions/') do
+  it { should be_directory }
+end
+
 describe file('/home/mtester/.zfunctions/async') do
   it { should be_file }
 end
@@ -16,4 +24,8 @@ describe file('/home/mtester/.zfunctions/.zshrc') do
   its(:content) { should contain /autoload -U promptinit && promptinit/ }
   its(:content) { should contain /prompt mlpure/ }
   its(:content) { should contain /alias ll='ls -la'/ }
+end
+
+describe user('mtester') do
+  it { should have_login_shell '/bin/zsh' }
 end
