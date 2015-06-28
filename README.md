@@ -75,4 +75,4 @@ Require [serverspec](http://serverspec.org/), check [.travis.yml](.travis.yml) f
 
 ## Licence
 
-MIT © [Maxime Loliée](https://github.com/loliee.com/)
+MIT © [Maxime Loliée](https://github.com/loliee/)
