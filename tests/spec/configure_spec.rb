@@ -2,10 +2,6 @@ require 'serverspec'
 
 set :backend, :exec
 
-describe command('/home/mtester/.zshrc') do
-  it { should be_file }
-end
-
 describe file('/home/mtester/.zfunctions/') do
   it { should be_directory }
 end

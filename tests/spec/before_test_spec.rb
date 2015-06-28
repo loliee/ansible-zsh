@@ -22,6 +22,13 @@ describe file('/home/mtester/.zfunctions/prompt_mlpure_setup') do
   it { should_not be_file }
 end
 
+describe file('/home/mtester/.zshrc') do
+  its(:content) { should_not contain /# Ansible managed:/ }
+  its(:content) { should_not contain /autoload -U promptinit && promptinit/ }
+  its(:content) { should_not contain /prompt mlpure/ }
+  its(:content) { should_not contain /alias ll='ls -la'/ }
+end
+
 describe user('mtester') do
   it { should have_home_directory '/home/mtester' }
 end
