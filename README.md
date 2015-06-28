@@ -3,13 +3,13 @@
 [![Build Status](https://travis-ci.org/loliee/ansible-zsh.svg?branch=master)](https://travis-ci.org/loliee/ansible-zsh)
 
 Install and set up [ZSH](http://www.zsh.org/).  
-This role can also configure `~./zshrc` file and download and set up `prompt`.
+This role can also configure `~./zshrc` file, upload functions files or download and set up a nice standalone `prompt`.
 
 ## Requirements
 
 - RedHat family
 - Debian family
-- OSX (Configuration part)
+- Darwin (OSX) with [homebrew](http://brew.sh/) package manager installed.
 
 ## Role Variables
 
@@ -39,13 +39,11 @@ __users__:
 
 Check [defaults/main.yml](defaults/main.yml) for default values.
 
-
 | Variable                          | Type     | Comments                                            |
 |-----------------------------------|----------|-----------------------------------------------------|
 | zsh_default_prompt_name           | string   | Default prompt_name, `mlpure`.                      |
 | zsh_default_prompt_download_url   | string   | Prompt download url, [mlpure](https://github.com/loliee/mlpure) |
-| zsh_default_prompt_additional_url | text     | `mlpure` async lib.                                 |Ó
-
+| zsh_default_prompt_additional_url | text     | `mlpure` async lib.                                 |
 
 ## Example Playbook
 
@@ -73,8 +71,7 @@ The following playbook will ensure zsh is present for root user and will setup p
 
 ## Run Tests
 
-Require [serverspec](http://serverspec.org/).  
-Check [.travis.yml](.travis.yml) for details.
+Require [serverspec](http://serverspec.org/), check [.travis.yml](.travis.yml) for details.
 
 ## Licence
 
