@@ -2,8 +2,17 @@ require 'serverspec'
 
 set :backend, :exec
 
+describe package('zsh') do
+  it { should be_installed }
+end
+
 describe file('/home/mtester/.zfunctions/') do
   it { should be_directory }
+end
+
+describe file('/home/mtester/.zfunctions/test') do
+  it { should be_file }
+  its(:content) { should contain /# Tests functions/ }
 end
 
 describe file('/home/mtester/.zfunctions/async') do

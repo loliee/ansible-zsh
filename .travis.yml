@@ -1,4 +1,5 @@
 ---
+
 language: python
 python: "2.7"
 
@@ -23,12 +24,12 @@ script:
   - rspec tests/spec/before_test_spec.rb
 
   # Check syntax
-  - ansible-playbook -i tests/inventory ./tests/playbooks/install.yml --syntax-check --list-tasks
+  - ansible-playbook -i tests/inventory ./tests/playbooks/configure_from_directory.yml --syntax-check --list-tasks
 
-  # Check install
-  - ansible-playbook -i ./tests/inventory tests/playbooks/install.yml --connection=local --sudo
-  - rspec tests/spec/install_spec.rb
+  - ansible-playbook -i ./tests/inventory tests/playbooks/configure_from_directory.yml --connection=local --sudo
+  - rspec tests/spec/configure_from_directory_spec.rb
+  - sudo rm -rf /home/mtester/.zfunctions
+  - sudo rm -f /home/mtester/.zshrc
 
-  # Check configuration
   - ansible-playbook -i ./tests/inventory tests/playbooks/configure.yml --connection=local --sudo
   - rspec tests/spec/configure_spec.rb
