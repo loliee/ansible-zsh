@@ -30,7 +30,6 @@
     owner={{ item.key }}
     dest=~{{ item.key }}/.zshrc
   with_dict: __users__ | default({})
-  when: (item.value.has_key('zsh_default_shell') and item.value.zsh_default_shell)
 
 - name: Check for .zfunctions directory.
   file:
@@ -39,7 +38,6 @@
     owner={{ item.key }}
     dest=~{{ item.key }}/.zfunctions
   with_dict: __users__ | default({})
-  when: (item.value.has_key('zsh_default_shell') and item.value.zsh_default_shell)
 
 - name: Upload zfunctions files
   copy:
