@@ -20,3 +20,5 @@ galaxy_info:
   - name: Darwin
     versions:
     - all
+  categories:
+    - system
