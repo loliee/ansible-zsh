@@ -60,8 +60,8 @@ The following playbook will ensure zsh is present for root user and will setup p
         zsh_prompt_name: pure
         zsh_prompt_download_url: https://raw.githubusercontent.com/sindresorhus/pure/master/pure.zsh
         zsh_prompt_additional_url: https://raw.githubusercontent.com/sindresorhus/pure/master/async.zsh
-        zfunctions_directory: ./files/zfunctions
-        zshrc_content: |
+        zsh_zfunctions_directory: ./files/zfunctions
+        zsh_zshrc_content: |
           alias ls='ls -lah'
 
   # Run
