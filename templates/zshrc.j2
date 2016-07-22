@@ -2,20 +2,38 @@
 
 fpath=("$HOME/.zfunctions" $fpath)
 
-{%- for username, options in __users__.iteritems() %}
-  {%- if username == item.key %}
-    {# Install prompt #}
-    {%- if options.has_key('zsh_prompt_install') and options.zsh_prompt_install %}
-
+{% if zsh_inst_type == 'users' %}
+  {% for username, options in __users__.iteritems() %}
+    {% if username == item.key %}
+      {# Install prompt #}
+      {% if options.has_key('zsh_prompt_install') and options.zsh_prompt_install %}
+	
 autoload -U promptinit && promptinit
 prompt {{ options.zsh_prompt_name | default(zsh_default_prompt_name) }}
-
-    {%- endif %}
-    {# Add custom lines #}
-    {%- if options.has_key('zsh_zshrc_content') and options.zsh_zshrc_content %}
+	
+      {% endif %}
+      {# Add custom lines #}
+      {% if options.has_key('zsh_zshrc_content') and options.zsh_zshrc_content %}
 
 {{ options.zsh_zshrc_content }}
+	
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
 
-    {%- endif %}
+{% if zsh_inst_type == 'skel' %}
+  {# Install prompt #}
+  {% if __skel__.has_key('zsh_prompt_install') and __skel__.zsh_prompt_install %}
+
+autoload -U promptinit && promptinit
+prompt {{ __skel__.zsh_prompt_name | default(zsh_default_prompt_name) }}
+    
   {% endif %}
-{% endfor %}
+  {# Add custom lines #}
+  {% if __skel__.has_key('zsh_zshrc_content') and __skel__.zsh_zshrc_content %}
+
+{{ __skel__.zsh_zshrc_content }}
+    
+  {% endif %}
+{% endif %}
