@@ -1,0 +1,85 @@
+---
+# Setup zshrc/prompt in skel directory
+
+- name: Set as default shell for users
+  replace:
+    dest: /etc/default/useradd
+    regexp: '^SHELL=.+$'
+    replace: 'SHELL=/bin/zsh'
+    backup: yes
+  when: >
+    (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian') and
+    (__skel__.has_key('zsh_default_shell') and __skel__.zsh_default_shell)
+  become: yes
+
+- name: Set as default shell for SSSd logins.
+  replace:
+    dest: /etc/sssd/sssd.conf
+    regexp: '^default_shell.+$'
+    replace: 'default_shell = /bin/zsh'
+    backup: yes
+  when: >
+    (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian') and
+    (__skel__.has_key('zsh_sssd_default_shell') and __skel__.zsh_sssd_default_shell)
+  become: yes
+
+- name: Generate .zshrc.
+  vars:
+    zsh_inst_type: skel
+  template:
+    mode=0644
+    src=zshrc.j2
+    owner=root
+    dest={{ skel_dir }}/.zshrc
+  become: yes
+  
+- name: Check for .zfunctions directory.
+  file:
+    state=directory
+    mode=0755
+    owner=root
+    dest={{ skel_dir }}/.zfunctions
+  become: yes
+  
+- name: Upload zfunctions files.
+  copy:
+      src=./{{ __skel__.zsh_zfunctions_directory }}/
+      dest={{ skel_dir }}/.zfunctions/
+      owner=root
+      directory_mode=yes
+      force=yes
+      mode=0755
+  when: >
+    __skel__.has_key('zsh_zfunctions_directory')
+  become: yes
+  
+- name: Download zsh prompt file.
+  get_url:
+    mode=0744
+    owner=root
+    url={{ __skel__.zsh_prompt_download_url | default(zsh_default_prompt_download_url) }}
+    dest={{ skel_dir }}/.zfunctions/prompt_{{ __skel__.zsh_prompt_name | default(zsh_default_prompt_name) }}_setup
+  when: __skel__.has_key('zsh_prompt_install') and __skel__.zsh_prompt_install
+  become: yes
+  
+- name: Download zsh prompt additional file.
+  get_url:
+    mode=0744
+    owner=root
+    url={{ __skel__.zsh_prompt_additional_url }}
+    dest={{ skel_dir }}/.zfunctions/{{ __skel__.zsh_prompt_additional_url | basename | replace('.zsh', '') }}
+  when: >
+    __skel__.has_key('zsh_prompt_install') and __skel__.zsh_prompt_install and
+    __skel__.has_key('zsh_prompt_additional_url') and __skel__.zsh_prompt_additional_url
+  become: yes
+  
+- name: Download zsh additional file if install default prompt.
+  get_url:
+    mode=0744
+    owner=root
+    url={{ zsh_default_prompt_additional_url }}
+    dest={{ skel_dir }}/.zfunctions/{{ zsh_default_prompt_additional_url | basename | replace('.zsh', '') }}
+  when: >
+      __skel__.has_key('zsh_prompt_install') and __skel__.zsh_prompt_install and not
+      __skel__.has_key('zsh_prompt_name')
+  become: yes

@@ -1,0 +1,70 @@
+---
+# Setup zshrc/prompt
+
+- name: Set as default shell for users
+  user: name={{ item.key }} shell=/bin/zsh
+  with_dict: __users__ | default({})
+  when: >
+    (ansible_os_family == 'RedHat' or ansible_os_family == 'Debian') and
+    (item.value.has_key('zsh_default_shell') and item.value.zsh_default_shell)
+
+- name: Generate ~.zshrc.
+  vars:
+    zsh_inst_type: users
+  template:
+    mode=0644
+    src=zshrc.j2
+    owner={{ item.key }}
+    dest=~{{ item.key }}/.zshrc
+  with_dict: __users__ | default({})
+
+- name: Check for .zfunctions directory.
+  file:
+    state=directory
+    mode=0755
+    owner={{ item.key }}
+    dest=~{{ item.key }}/.zfunctions
+  with_dict: __users__ | default({})
+
+- name: Upload zfunctions files
+  copy:
+      src=./{{ item.value.zsh_zfunctions_directory }}/
+      dest=~{{ item.key }}/.zfunctions/
+      owner={{ item.key }}
+      directory_mode=yes
+      force=yes
+      mode=0755
+  with_dict: __users__ | default({})
+  when: >
+    item.value.has_key('zsh_zfunctions_directory')
+
+- name: Download zsh prompt file.
+  get_url:
+    mode=0744
+    owner={{ item.key }}
+    url={{ item.value.zsh_prompt_download_url | default(zsh_default_prompt_download_url) }}
+    dest=~{{ item.key }}/.zfunctions/prompt_{{ item.value.zsh_prompt_name | default(zsh_default_prompt_name) }}_setup
+  with_dict: __users__ | default({})
+  when: item.value.has_key('zsh_prompt_install') and item.value.zsh_prompt_install
+
+- name: Download zsh prompt additional file.
+  get_url:
+    mode=0744
+    owner={{ item.key }}
+    url={{ item.value.zsh_prompt_additional_url }}
+    dest=~{{ item.key }}/.zfunctions/{{ zsh_prompt_additional_url | basename | replace('.zsh', '') }}
+  with_dict: __users__ | default({})
+  when: >
+    item.value.has_key('zsh_prompt_install') and item.value.zsh_prompt_install and
+    item.value.has_key('zsh_prompt_additional_url') and item.value.zsh_prompt_additional_url
+
+- name: Download zsh additional file if install default prompt.
+  get_url:
+    mode=0744
+    owner={{ item.key }}
+    url={{ zsh_default_prompt_additional_url }}
+    dest=~{{ item.key }}/.zfunctions/{{ zsh_default_prompt_additional_url | basename | replace('.zsh', '') }}
+  with_dict: __users__ | default({})
+  when: >
+      item.value.has_key('zsh_prompt_install') and item.value.zsh_prompt_install and not
+      item.value.has_key('zsh_prompt_name')
